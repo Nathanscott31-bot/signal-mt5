@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Signal MT5">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Signal MT5</title>
+</head>
+<body>
+  <main class="screen">
+    <header>
+      <h1>Signal MT5</h1>
+      <span class="pill">Assistant de saisie</span>
+    </header>
+    <p class="muted">Colle le signal : l'application en extrait les valeurs, que tu copies une à une dans MT5. Elle ne passe aucun ordre.</p>
+
+    <label for="signal" class="label">Signal WhatsApp</label>
+    <textarea id="signal" rows="7" spellcheck="false"
+      placeholder="Colle le signal ici&#10;ex. XAUUSD BUY NOW&#10;SL 2645&#10;TP1 2655&#10;TP2 2660"></textarea>
+    <div class="row">
+      <button id="paste" class="secondary" type="button">Coller</button>
+      <button id="clear" class="secondary" type="button">Effacer</button>
+    </div>
+
+    <label for="price" class="label">Prix actuel (facultatif)</label>
+    <input id="price" type="text" inputmode="decimal" autocomplete="off" placeholder="ex. 2650.30">
+    <p class="muted small">Si tu l'indiques, l'application te dit s'il faut un ordre au marché, LIMIT ou STOP, et détecte plus d'erreurs.</p>
+
+    <button id="analyse" class="primary" type="button">Analyser le signal</button>
+    <p id="error" class="error" role="alert"></p>
+
+    <section id="result" class="card" hidden>
+      <h2 id="r-title"></h2>
+      <p id="r-type" class="type"></p>
+      <ul id="r-warn" class="warn" role="alert"></ul>
+
+      <h3>Valeurs à copier</h3>
+      <div id="r-values" class="values"></div>
+
+      <h3 id="r-orders-title">Ordres à créer dans MT5</h3>
+      <ol id="r-orders" class="orders"></ol>
+
+      <button id="copy-all" class="secondary" type="button">Copier le résumé</button>
+
+      <details class="help">
+        <summary>Comment saisir l'ordre dans MT5</summary>
+        <ol>
+          <li>Ouvre MT5 et touche le symbole (onglet Cotations), puis <b>Trade</b> ou <b>Nouvel ordre</b>.</li>
+          <li>Choisis le type : <b>Exécution au marché</b>, ou un ordre en attente (<b>Buy Limit</b>, <b>Sell Limit</b>, <b>Buy Stop</b>, <b>Sell Stop</b>) avec le prix d'entrée.</li>
+          <li>Reviens ici, touche <b>Copier</b> à côté d'une valeur, puis colle-la dans le champ correspondant (Stop Loss, Take Profit...).</li>
+          <li>Choisis ton lot, relis l'ordre, puis valide. Pour plusieurs TP, crée un ordre par TP avec le même SL.</li>
+        </ol>
+        <p class="muted small">Les noms des boutons peuvent varier selon la version de MT5.</p>
+      </details>
+    </section>
+
+    <p class="muted small foot">Le trading comporte un risque de perte en capital. Vérifie toujours le signal avant d'agir.</p>
+  </main>
+
+  <script src="parser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
